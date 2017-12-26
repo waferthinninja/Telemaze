@@ -5,6 +5,7 @@ using UnityEngine;
 public class Teleporter : MonoBehaviour {
 
     public Transform target;
+    public ParticleSystem StartTeleportEffect;
 
 	// Use this for initialization
 	void Start () {
@@ -16,16 +17,17 @@ public class Teleporter : MonoBehaviour {
 		
 	}
 
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.name == "Player")
         {
             var player = col.gameObject.GetComponent<PlayerController>();
-            if (player.TeleportTimeout <= 0f)
+            
+            if (player.TryTeleport(target.position))
             {
-                player.StartTimeout();
-                col.transform.position = target.position;
+                StartTeleportEffect.Play();
             }
+                
         }
 
     }
