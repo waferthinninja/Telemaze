@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
 
     public Animator Animator;
 
+    public Transform StartPoint;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -29,6 +31,15 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reset();
+        }
 
         if (isTeleporting)
         {
@@ -58,6 +69,11 @@ public class PlayerController : MonoBehaviour {
 
         
 	}
+
+    public void Reset()
+    {
+        transform.position = StartPoint.position;
+    }
 
     public bool TryTeleport(Vector3 target)
     {
