@@ -7,9 +7,12 @@ public class Teleporter : MonoBehaviour {
     public Transform target;
     public ParticleSystem StartTeleportEffect;
 
+    private AudioSource AudioSource;
+    public AudioClip[] TeleportSounds;
+
 	// Use this for initialization
 	void Start () {
-		
+        AudioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -26,6 +29,9 @@ public class Teleporter : MonoBehaviour {
             if (player.TryTeleport(target.position))
             {
                 StartTeleportEffect.Play();
+                int n = Random.Range(0, TeleportSounds.Length - 1);
+                var clip = TeleportSounds[n];
+                AudioSource.PlayOneShot(clip);
             }
                 
         }
